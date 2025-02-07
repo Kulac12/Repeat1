@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Core.DataAccess
 {
     //generic constraint
-    //class : referans tip olabilir demek
+    //class  : referans tip olabilir demek
     //IEntity: IEntity olabilir veya IEntity implement eden bir nesne olabilir
-    //new() : new'lenebilir olmalı
+    //new()  : new'lenebilir olmalı
     public interface IEntityRepository<T> where T : class, IEntity, new()
     {
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
