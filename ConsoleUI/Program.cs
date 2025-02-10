@@ -18,43 +18,66 @@ namespace ConsoleUI
             ProductTest();
             //ProductTest2();
             //ProductTest3();
-            //CategoryTest();
+            CategoryTest();
         }
 
         private static void CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach (var category in categoryManager.GetAll())
+            var result = categoryManager.GetAll();
+            if (result.Success)
             {
-                Console.WriteLine(category.CategoryName );
+                foreach (var category in result.Data)
+                {
+                    Console.WriteLine(category.CategoryId + "/ İlgili Kategori ismi :  " + category.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+           
         }
 
-        private static void ProductTest3()
-        {
-            ProductManager productManager2 = new ProductManager(new EfProductDal());
-            foreach (var product in productManager2.GetByUnitPrice(50, 100))
-            {
-                Console.WriteLine(product.ProductName);
-            }
-        }
+        //private static void ProductTest3()
+        //{
+        //    ProductManager productManager2 = new ProductManager(new EfProductDal());
+        //    foreach (var product in productManager2.GetByUnitPrice(50, 100))
+        //    {
+        //        Console.WriteLine(product.ProductName);
+        //    }
+        //}
 
-        private static void ProductTest2()
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetAllByCategoryId(2))
-            {
-                Console.WriteLine(product.ProductName);
-            }
-        }
+        //private static void ProductTest2()
+        //{
+        //    ProductManager productManager = new ProductManager(new EfProductDal());
+        //    foreach (var product in productManager.GetAllByCategoryId(2))
+        //    {
+        //        Console.WriteLine(product.ProductName);
+        //    }
+        //}
 
         public static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductDetails())
+
+            var result = productManager.GetProductDetails();
+
+            if (result.Success)
             {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName );
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
+
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+         
           
 
         }
