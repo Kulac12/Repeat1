@@ -50,8 +50,8 @@ namespace WebAPI.Controllers
         [HttpGet("deneme")]
         public List<Product> GetDeneme()
         {
-            IProductService productService = new ProductManager(new EfProductDal());
-            var result = productService.GetAll();
+            //IProductService productService = new ProductManager(new EfProductDal());
+            var result = _productService.GetAll();
             return result.Data;
         }
 

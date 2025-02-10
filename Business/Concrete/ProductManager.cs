@@ -5,6 +5,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace Business.Concrete
         }
 
 
-
+        [LogAscept]  ---> AOP 
         public IResult Add(Product product)
         {
+           
             if (product.ProductName.Length<2)
             {
                 return new ErrorResult(Messages.ProductNameInvalid);
