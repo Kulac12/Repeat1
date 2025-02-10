@@ -20,9 +20,6 @@ namespace WebAPI.Controllers
         {
             _productService = productService;
 
-
-
-
         }
 
         [HttpGet("merhaba")]
@@ -47,7 +44,7 @@ namespace WebAPI.Controllers
             };
         }
 
-        [HttpGet("deneme")]
+        [HttpGet("productlist")]
         public List<Product> GetDeneme()
         {
             //IProductService productService = new ProductManager(new EfProductDal());
@@ -55,7 +52,7 @@ namespace WebAPI.Controllers
             return result.Data;
         }
 
-        [HttpGet("deneme2")]
+        [HttpGet("getall")]
         public string GetDeneme2()
         {
             var result = _productService.GetAll();
@@ -63,7 +60,44 @@ namespace WebAPI.Controllers
 
         }
 
+        [HttpGet("deneme3")]
+        public IActionResult GetDeneme3()
+        {
+            var result = _productService.GetAll();
 
-     
+            //eğer sonuç başarılı dönerse Ok() başarılı oldu demek
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpPost("createproduct")]
+        public IActionResult PostDeneme1(Product product)
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest(result);
+           
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetDeneme4(int id)
+        {
+            var result = _productService.GetById(id);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }
