@@ -18,7 +18,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             //birisi senden IProductService isterse ona ProductManager ver demek
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance(); // builder.Services.AddSingleton<IProductDal, EfProductDal>();
-            
+
 
         }
 
