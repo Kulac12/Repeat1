@@ -21,6 +21,10 @@ namespace Business.Constants
         //CategoryManager ile ilgili bilgilendirme mesajları
         public static string CategorysListed = "Kategoriler listelendi.";
         public static string CategoryListed = "İlgili kategori listelendi";
+
+        public static string ProductCountOfCategoryError = "Kategoride 10 dan fazla ürün var";
+        public static string SameProductNameTrue = "Aynı ürün isminde zaten bir ürün mevcut.";
+        public static string CategoryLimitedExceded ="Kategori limiti aşıldı.";
     }
 }
 

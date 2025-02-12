@@ -18,6 +18,7 @@ namespace Business.Abstract
 
         //void Add(Product product);
         IResult Add(Product product);
+        IResult Update(Product product);
         IDataResult<Product> GetById(int productId); // bu aslında şu demek bana id sini verdiğim ilgili
         //ürün hakkındaki bilgileri getir. Geriye sadece bir adet Product nesnesi dönmesi gerek
     }
