@@ -5,6 +5,7 @@ using Business.CSS;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -18,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Business.Concrete
 {
@@ -38,6 +40,7 @@ namespace Business.Concrete
 
         [SecuredOperation("product.add, admin")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             //Bir ürün eklemek istersen, eklemek istediğin ürünün kategorisinde maximum 10 ürün olabilir. 
@@ -92,7 +95,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
-
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
             throw new NotImplementedException();
@@ -130,7 +133,22 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
-    
-    
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+            using (TransactionScope scope =new TransactionScope())
+            {
+                Add(product);
+                if (product.UnitPrice < 10)
+                {
+                    throw new Exception("");
+
+                }
+                Add(product);
+            }
+          
+            return null;
+        }
     }
 }
