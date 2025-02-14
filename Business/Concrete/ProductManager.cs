@@ -5,6 +5,7 @@ using Business.CSS;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -60,7 +61,8 @@ namespace Business.Concrete
         }
 
 
-        [CacheAspect] 
+        [CacheAspect]
+        [PerformanceAspect(5)] // bu metodun çalışması 5sn yi geçerse beni uyar sistemde bir yavaşlık avr.
         public IDataResult<List<Product>> GetAll()
         {
             //iş kodları
