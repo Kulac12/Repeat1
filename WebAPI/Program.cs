@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.IoC;
+using Core.Extensions;
+using Core.DependencyResolvers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +24,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 });
 
 
-// Add services to the container.
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+// duruma göre bu arkadaþý silebilrsin CoreModule.cs e taþýndý.
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();  
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -48,7 +50,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
         };
     });
-ServiceTool.Create(builder.Services);
+//ServiceTool.Create(builder.Services);
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+
+});
 
 
 //Autofac, Ninject, CastleWindsor, StructureMap, LightInject, DryInject -->IoC Container

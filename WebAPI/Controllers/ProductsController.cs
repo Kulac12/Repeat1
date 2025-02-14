@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
             return result.Data;
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getall2")]
         public string GetDeneme2()
         {
             var result = _productService.GetAll();
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
 
         }
 
-        [HttpGet("deneme3")]
+        [HttpGet("getall")]
         public IActionResult GetDeneme3()
         {
             var result = _productService.GetAll();
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("createproduct")]
+        [HttpPost("add")]
         public IActionResult PostDeneme1(Product product)
         {
             var result = _productService.Add(product);
