@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.CSS;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -11,6 +12,7 @@ using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +57,7 @@ namespace Business.Concrete
         }
 
 
-
+        [CacheAspect] 
         public IDataResult<List<Product>> GetAll()
         {
             //iş kodları
@@ -73,6 +75,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id), Messages.ProductsListed);
         }
 
+        [CacheAspect]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId), Messages.ProductListed);
