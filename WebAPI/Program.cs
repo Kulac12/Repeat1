@@ -13,9 +13,12 @@ using Core.Utilities.Security.Encryption;
 using Core.Utilities.IoC;
 using Core.Extensions;
 using Core.DependencyResolvers;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<NorthwindContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection")));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
