@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class NorthwindContext:DbContext
+    public class NorthwindContext : DbContext
     {
 
         // override on
@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
         /// yeni eklediklerim
         /// </summary>
         public DbSet<Storage> Storage { get; set; }
-        public DbSet<Province>Province { get; set; }
+        public DbSet<Province> Province { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,9 +40,12 @@ namespace DataAccess.Concrete.EntityFramework
                 .WithMany(p => p.Storage) // Bir Province, birçok Storage içerebilir.
                 .HasForeignKey(s => s.ProvinceId) // Foreign key olarak ProvinceId kullanılır.
                 .OnDelete(DeleteBehavior.Restrict); // Province silindiğinde Storage etkilenmez.
+
+
+            //Yorum satırları bir developerın içini döktüğü yerdir. 
+
+
+
         }
-        //Yorum satırları bir developerın içini döktüğü yerdir. 
-
-
     }
 }

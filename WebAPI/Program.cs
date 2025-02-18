@@ -17,8 +17,12 @@ using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<NorthwindContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection")));
+//Çünkü OnConfiguring metodunu zaten kullanýyoruz ve AddDbContext metoduna ihtiyacýmýz kalmýyor.
+//NorthwindContext sýnýfý doðrudan baðlantý dizesine baðýmlý olur. appsettings.json gibi harici bir yapýlandýrma dosyasýndan okumaz.
+//Baðlantý dizesi kod içinde sabit olduðu için güvenlik açýsýndan önerilmez.
+
+//builder.Services.AddDbContext<NorthwindContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection")));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
